@@ -6,6 +6,20 @@
     },
     "host": "subukris-test.apigee.net",
     "basePath": "/v1/taxis",
+    "tags": [
+        {
+            "name": "Fares",
+            "description": "Find out the fare"
+        },
+        {
+            "name": "Bookings",
+            "description": "Book a taxi"
+        },
+        {
+            "name": "Feedback",
+            "description": "Give feedback for a ride"
+        }
+    ],
     "schemes": [
         "https"
     ],
@@ -18,6 +32,9 @@
     "paths": {
         "/calculate_fare": {
             "post": {
+                "tags": [
+                    "Fares"
+                ],
                 "description": "Calculates and returns the fare in INR from the source address to the destination address. This is not a resource but a command.",
                 "operationId": "calculate_fare",
                 "parameters": [

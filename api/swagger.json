@@ -1,0 +1,138 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "0.1",
+        "title": "Taxiservice"
+    },
+    "host": "subukris-test.apigee.net",
+    "basePath": "/v1/taxis",
+    "schemes": [
+        "https"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/calculate_fare": {
+            "post": {
+                "description": "Calculates and returns the fare in INR from the source address to the destination address. This is not a resource but a command.",
+                "operationId": "calculate_fare",
+                "parameters": [
+                    {
+                        "name": "commuteDefinition",
+                        "in": "body",
+                        "description": "Source and target address to calculate fare",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/CommuteDefinition"
+                        }
+                    },
+                    {
+                        "name": "X-Taxiservice-UserId",
+                        "in": "header",
+                        "description": "User mobile number",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Fare calculation successful",
+                        "schema": {
+                            "title": "calculationDefintion",
+                            "$ref": "#/definitions/CalculationDefinition"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request.",
+                        "schema": {
+                            "title": "errorDefinition",
+                            "$ref": "#/definitions/ErrorDefinition"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized.",
+                        "schema": {
+                            "title": "errorDefinition",
+                            "$ref": "#/definitions/ErrorDefinition"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal service error.",
+                        "schema": {
+                            "title": "errorDefinition",
+                            "$ref": "#/definitions/ErrorDefinition"
+                        }
+                    }
+                }
+            }
+        },
+        "/swagger": {
+            "x-swagger-pipe": "swagger_raw"
+        }
+    },
+    "definitions": {
+        "ErrorDefinition": {
+            "required": [
+                "message"
+            ],
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "CommuteDefinition": {
+            "required": [
+                "source",
+                "destination"
+            ],
+            "properties": {
+                "source": {
+                    "type": "string"
+                },
+                "destination": {
+                    "type": "string"
+                }
+            }
+        },
+        "MeasureDefinition": {
+            "required": [
+                "value",
+                "unit"
+            ],
+            "properties": {
+                "value": {
+                    "type": "integer"
+                },
+                "unit": {
+                    "type": "string"
+                }
+            }
+        },
+        "CalculationDefinition": {
+            "allOf": [
+                {
+                    "$ref": "#/definitions/CommuteDefinition"
+                },
+                {
+                    "required": [
+                        "fare",
+                        "dist"
+                    ],
+                    "properties": {
+                        "fare": {
+                            "$ref": "#/definitions/MeasureDefinition"
+                        },
+                        "dist": {
+                            "$ref": "#/definitions/MeasureDefinition"
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}

@@ -87,8 +87,126 @@
                 }
             }
         },
-        "/swagger": {
-            "x-swagger-pipe": "swagger_raw"
+        "/bookings": {
+            "post": {
+                "tags": [
+                    "Bookings"
+                ],
+                "description": "Resource for booking a taxi.",
+                "operationId": "create_booking",
+                "parameters": [
+                    {
+                        "name": "bookingRequestDefinition",
+                        "in": "body",
+                        "description": "Source and target address, time and vehicle type for the ride",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/BookingRequestDefinition"
+                        }
+                    },
+                    {
+                        "name": "X-Taxiservice-UserId",
+                        "in": "header",
+                        "description": "User mobile number",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Booking successful. A booking id is generated only if the booking was successful. Else an UNAVAILABLE is returned in the status.",
+                        "schema": {
+                            "title": "calculationDefintion",
+                            "$ref": "#/definitions/BookingDefinition"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request.",
+                        "schema": {
+                            "title": "errorDefinition",
+                            "$ref": "#/definitions/ErrorDefinition"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized.",
+                        "schema": {
+                            "title": "errorDefinition",
+                            "$ref": "#/definitions/ErrorDefinition"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal service error.",
+                        "schema": {
+                            "title": "errorDefinition",
+                            "$ref": "#/definitions/ErrorDefinition"
+                        }
+                    }
+                }
+            }
+        },
+        "/bookings/{id}/feedback": {
+            "post": {
+                "tags": [
+                    "Feedback"
+                ],
+                "description": "Resource for submitting feedback for a ride.",
+                "operationId": "submit_feedback",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Booking id for which feedback is given",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "feedbackDefinition",
+                        "in": "body",
+                        "description": "Feedback message and rating for the ride",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/FeedbackDefinition"
+                        }
+                    },
+                    {
+                        "name": "X-Taxiservice-UserId",
+                        "in": "header",
+                        "description": "User mobile number",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Feedback recorded successfully.",
+                        "schema": {
+                            "title": "recordedFeedbackDefintion",
+                            "$ref": "#/definitions/RecordedFeedbackDefinition"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request.",
+                        "schema": {
+                            "title": "errorDefinition",
+                            "$ref": "#/definitions/ErrorDefinition"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized.",
+                        "schema": {
+                            "title": "errorDefinition",
+                            "$ref": "#/definitions/ErrorDefinition"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal service error.",
+                        "schema": {
+                            "title": "errorDefinition",
+                            "$ref": "#/definitions/ErrorDefinition"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -115,6 +233,95 @@
                     "type": "string"
                 }
             }
+        },
+        "BookingRequestDefinition": {
+            "allOf": [
+                {
+                    "$ref": "#/definitions/CommuteDefinition"
+                },
+                {
+                    "required": [
+                        "datetime",
+                        "vehicle"
+                    ],
+                    "properties": {
+                        "datetime": {
+                            "type": "string"
+                        },
+                        "vehicle": {
+                            "type": "string"
+                        },
+                        "passengers": {
+                            "type": "integer"
+                        },
+                        "landmark": {
+                            "type": "string"
+                        }
+                    }
+                }
+            ]
+        },
+        "BookingDefinition": {
+            "allOf": [
+                {
+                    "$ref": "#/definitions/BookingRequestDefinition"
+                },
+                {
+                    "required": [
+                        "status"
+                    ],
+                    "properties": {
+                        "id": {
+                            "type": "string"
+                        },
+                        "status": {
+                            "type": "string",
+                            "enum": [
+                                "CONFIRMED",
+                                "UNAVAILABLE",
+                                "CANCELLED",
+                                "FULFILLED",
+                                "IN_FLIGHT"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        "FeedbackDefinition": {
+            "required": [
+                "message",
+                "rating"
+            ],
+            "properties": {
+                "message": {
+                    "type": "string"
+                },
+                "rating": {
+                    "type": "integer"
+                }
+            }
+        },
+        "RecordedFeedbackDefinition": {
+            "allOf": [
+                {
+                    "$ref": "#/definitions/FeedbackDefinition"
+                },
+                {
+                    "required": [
+                        "status"
+                    ],
+                    "properties": {
+                        "status": {
+                            "type": "string",
+                            "enum": [
+                                "RECORDED",
+                                "FUTURE_EXTENSION"
+                            ]
+                        }
+                    }
+                }
+            ]
         },
         "MeasureDefinition": {
             "required": [

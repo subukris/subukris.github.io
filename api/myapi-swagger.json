@@ -257,7 +257,8 @@
             }
         },
         "SkillDefinition": {
-            "type": "string"
+            "type": "string",
+	    "properties": {} 
         },
         "MessageDefinition": {
             "type": "object",

@@ -257,14 +257,7 @@
             }
         },
         "SkillDefinition": {
-            "type": "object",
-            "properties": {
-                "skill": {
-                    "type": "string",
-                    "format": "string",
-                    "description": "Skills"
-                }
-            }
+            "type": "string"
         },
         "MessageDefinition": {
             "type": "object",

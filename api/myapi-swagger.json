@@ -1,0 +1,281 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "My Signature API",
+        "description": "Know about me!",
+        "version": "1.0.0"
+    },
+    "host": "mysignatureapi.mybluemix.net",
+    "schemes": [
+        "https"
+    ],
+    "basePath": "/v1",
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/summary": {
+            "get": {
+                "summary": "summary",
+                "description": "Synopsis of my professional background and experience.\n",
+                "tags": [
+                    "summary"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Combination of my professional background and experience.",
+                        "schema": {
+                            "$ref": "#/definitions/summary"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/organizations": {
+            "get": {
+                "summary": "organizations",
+                "description": "Gives a list of organzations I have worked for.\n",
+                "tags": [
+                    "organizations"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lists all organizations I have worked so far.",
+                        "schema": {
+                            "$ref": "#/definitions/organizations"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/interests": {
+            "get": {
+                "summary": "interests",
+                "description": "My hobbies, engagements and volunteering activites",
+                "tags": [
+                    "interests"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "my interest areas",
+                        "schema": {
+                            "$ref": "#/definitions/interests"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/skills": {
+            "get": {
+                "summary": "skills",
+                "description": "my skill sets",
+                "tags": [
+                    "skills"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "skill sets",
+                        "schema": {
+                            "$ref": "#/definitions/skills"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/education": {
+            "get": {
+                "summary": "education",
+                "description": "Educational Background",
+                "tags": [
+                    "education"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Educational background",
+                        "schema": {
+                            "$ref": "#/definitions/education"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/messages": {
+            "post": {
+                "summary": "messages",
+                "description": "Send me an email if you want to get in touch with me.",
+                "parameters": [
+                    {
+                        "name": "subject",
+                        "in": "query",
+                        "description": "context set for the email",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    },
+                    {
+                        "name": "body",
+                        "in": "query",
+                        "description": "body of the email.",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    }
+                ],
+                "tags": [
+                    "email"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "email sent successfully",
+                        "schema": {
+                            "$ref": "#/definitions/messages"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "summary": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "format": "string",
+                    "description": "Description"
+                },
+                "specialities": {
+                    "type": "string",
+                    "format": "string",
+                    "description": "Specialities"
+                }
+            }
+        },
+        "organizations": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "format": "string",
+                    "description": "Name"
+                },
+                "role": {
+                    "type": "string",
+                    "format": "string",
+                    "description": "Role"
+                },
+                "description": {
+                    "type": "string",
+                    "format": "string",
+                    "description": "Description"
+                },
+                "period": {
+                    "type": "string",
+                    "format": "string",
+                    "description": "period"
+                }
+            }
+        },
+        "education": {
+            "type": "object",
+            "properties": {
+                "degree": {
+                    "type": "string",
+                    "format": "string",
+                    "description": "degree"
+                },
+                "institute": {
+                    "type": "string",
+                    "format": "string",
+                    "description": "institute"
+                },
+                "period": {
+                    "type": "string",
+                    "format": "string",
+                    "description": "period"
+                }
+            }
+        },
+        "interests": {
+            "type": "object",
+            "properties": {
+                "interests": {
+                    "type": "string",
+                    "format": "string",
+                    "description": "Interests"
+                }
+            }
+        },
+        "skills": {
+            "type": "object",
+            "properties": {
+                "sklls": {
+                    "type": "string",
+                    "format": "string",
+                    "description": "Skills"
+                }
+            }
+        },
+        "messages": {
+            "type": "string",
+            "properties": {
+                "Body": {
+                    "type": "string",
+                    "format": "string",
+                    "description": "Body"
+                }
+            }
+        },
+        "Error": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "fields": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

@@ -1,8 +1,8 @@
 {
     "swagger": "2.0",
     "info": {
-        "title": "My Signature API",
-        "description": "Know about me!",
+        "title": "My APIs",
+        "description": "Get to know more about me through apis",
         "version": "1.0.0"
     },
     "host": "subuapi.mybluemix.net",
@@ -16,22 +16,22 @@
     "paths": {
         "/summary": {
             "get": {
-                "summary": "summary",
-                "description": "Synopsis of my professional background and experience.\n",
+                "summary": "Brief about me",
+                "description": "Summary of my professional background and experience.\n",
                 "tags": [
-                    "summary"
+                    "Professional"
                 ],
                 "responses": {
                     "200": {
-                        "description": "Combination of my professional background and experience.",
+                        "description": "Summary object",
                         "schema": {
-                            "$ref": "#/definitions/summary"
+                            "$ref": "#/definitions/SummaryDefinition"
                         }
                     },
-                    "default": {
-                        "description": "Unexpected error",
+                    "401": {
+                        "description": "Access denied",
                         "schema": {
-                            "$ref": "#/definitions/Error"
+                            "$ref": "#/definitions/ErrorDefinition"
                         }
                     }
                 }
@@ -39,45 +39,54 @@
         },
         "/organizations": {
             "get": {
-                "summary": "organizations",
-                "description": "Gives a list of organzations I have worked for.\n",
+                "summary": "Organizations served",
+                "description": "List of organizations I have worked for so far.\n",
                 "tags": [
-                    "organizations"
+                    "Professional"
                 ],
                 "responses": {
                     "200": {
-                        "description": "Lists all organizations I have worked so far.",
+                        "description": "Organizations list",
                         "schema": {
-                            "$ref": "#/definitions/organizations"
+                            "title": "Organizations",
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/OrganizationDefinition"
+                            }
                         }
                     },
-                    "default": {
-                        "description": "Unexpected error",
+                    "401": {
+                        "description": "Access denied",
                         "schema": {
-                            "$ref": "#/definitions/Error"
+                            "$ref": "#/definitions/ErrorDefinition"
                         }
                     }
+
                 }
             }
         },
         "/interests": {
             "get": {
-                "summary": "interests",
-                "description": "My hobbies, engagements and volunteering activites",
+                "summary": "Everything that interests me",
+                "description": "My hobbies, engagements and activites apart from work",
                 "tags": [
-                    "interests"
+                    "Personal"
                 ],
                 "responses": {
                     "200": {
-                        "description": "my interest areas",
+                        "description": "List of interests",
                         "schema": {
-                            "$ref": "#/definitions/interests"
+                            "title": "Interests",
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/InterestDefinition"
+                            }
                         }
                     },
-                    "default": {
-                        "description": "Unexpected error",
+                    "401": {
+                        "description": "Access denied",
                         "schema": {
-                            "$ref": "#/definitions/Error"
+                            "$ref": "#/definitions/ErrorDefinition"
                         }
                     }
                 }
@@ -85,45 +94,53 @@
         },
         "/skills": {
             "get": {
-                "summary": "skills",
-                "description": "my skill sets",
+                "summary": "Skills",
+                "description": "My technical skills",
                 "tags": [
-                    "skills"
+                    "Professional"
                 ],
                 "responses": {
                     "200": {
-                        "description": "skill sets",
+                        "description": "Skill set",
                         "schema": {
-                            "$ref": "#/definitions/skills"
+                            "title": "Skills",
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/SkillDefinition"
+                            }
                         }
                     },
-                    "default": {
-                        "description": "Unexpected error",
+                    "401": {
+                        "description": "Access denied",
                         "schema": {
-                            "$ref": "#/definitions/Error"
+                            "$ref": "#/definitions/ErrorDefinition"
                         }
                     }
                 }
             }
         },
-        "/education": {
+        "/degrees": {
             "get": {
-                "summary": "education",
-                "description": "Educational Background",
+                "summary": "Degrees received",
+                "description": "Educational  background",
                 "tags": [
-                    "education"
+                    "Educational"
                 ],
                 "responses": {
                     "200": {
-                        "description": "Educational background",
+                        "description": "List of degrees",
                         "schema": {
-                            "$ref": "#/definitions/education"
+                            "title": "Degrees",
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/DegreeDefinition"
+                            }
                         }
                     },
-                    "default": {
-                        "description": "Unexpected error",
+                    "401": {
+                        "description": "Access denied",
                         "schema": {
-                            "$ref": "#/definitions/Error"
+                            "$ref": "#/definitions/ErrorDefinition"
                         }
                     }
                 }
@@ -131,40 +148,37 @@
         },
         "/messages": {
             "post": {
-                "summary": "messages",
-                "description": "Send me an email if you want to get in touch with me.",
-                "parameters": [
-                    {
-                        "name": "subject",
-                        "in": "query",
-                        "description": "context set for the email",
-                        "required": true,
-                        "type": "string",
-                        "format": "string"
-                    },
-                    {
-                        "name": "body",
-                        "in": "query",
-                        "description": "body of the email.",
-                        "required": true,
-                        "type": "string",
-                        "format": "string"
+                "summary": "Messages",
+                "description": "This will send me an email",
+                "parameters": [{
+                    "name": "body",
+                    "in": "body",
+                    "description": "Message contents",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/MessageDefinition"
                     }
-                ],
+                }],
                 "tags": [
-                    "email"
+                    "Contact"
                 ],
                 "responses": {
                     "200": {
-                        "description": "email sent successfully",
+                        "description": "Message sent successfully",
                         "schema": {
-                            "$ref": "#/definitions/messages"
+                            "$ref": "#/definitions/MessageDefinition"
                         }
                     },
-                    "default": {
-                        "description": "Unexpected error",
+                    "401": {
+                        "description": "Access denied",
                         "schema": {
-                            "$ref": "#/definitions/Error"
+                            "$ref": "#/definitions/ErrorDefinition"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal error",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorDefinition"
                         }
                     }
                 }
@@ -172,7 +186,7 @@
         }
     },
     "definitions": {
-        "summary": {
+        "SummaryDefinition": {
             "type": "object",
             "properties": {
                 "description": {
@@ -187,7 +201,7 @@
                 }
             }
         },
-        "organizations": {
+        "OrganizationDefinition": {
             "type": "object",
             "properties": {
                 "name": {
@@ -208,11 +222,11 @@
                 "period": {
                     "type": "string",
                     "format": "string",
-                    "description": "period"
+                    "description": "Period"
                 }
             }
         },
-        "education": {
+        "DegreeDefinition": {
             "type": "object",
             "properties": {
                 "degree": {
@@ -232,47 +246,46 @@
                 }
             }
         },
-        "interests": {
+        "InterestDefinition": {
             "type": "object",
             "properties": {
-                "interests": {
+                "interest": {
                     "type": "string",
                     "format": "string",
-                    "description": "Interests"
+                    "description": "Interest"
                 }
             }
         },
-        "skills": {
+        "SkillDefinition": {
             "type": "object",
             "properties": {
-                "sklls": {
+                "skill": {
                     "type": "string",
                     "format": "string",
                     "description": "Skills"
                 }
             }
         },
-        "messages": {
-            "type": "string",
+        "MessageDefinition": {
+            "type": "object",
             "properties": {
-                "Body": {
+                "body": {
                     "type": "string",
                     "format": "string",
                     "description": "Body"
+                },
+                "sender": {
+                    "type": "string",
+                    "format": "string",
+                    "description": "Sender email"
                 }
-            }
+            },
+            "required": ["body", "sender"]
         },
-        "Error": {
+        "ErrorDefinition": {
             "type": "object",
             "properties": {
-                "code": {
-                    "type": "integer",
-                    "format": "int32"
-                },
                 "message": {
-                    "type": "string"
-                },
-                "fields": {
                     "type": "string"
                 }
             }

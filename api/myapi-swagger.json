@@ -247,14 +247,8 @@
             }
         },
         "InterestDefinition": {
-            "type": "object",
-            "properties": {
-                "interest": {
-                    "type": "string",
-                    "format": "string",
-                    "description": "Interest"
-                }
-            }
+            "type": "string",
+            "properties": {}
         },
         "SkillDefinition": {
             "type": "string",

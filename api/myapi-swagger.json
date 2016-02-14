@@ -16,7 +16,7 @@
     "paths": {
         "/summary": {
             "get": {
-                "summary": "Brief about me",
+                "summary": "Summary of my professional background and experience",
                 "description": "Summary of my professional background and experience.\n",
                 "tags": [
                     "Professional"
@@ -39,8 +39,8 @@
         },
         "/organizations": {
             "get": {
-                "summary": "Organizations served",
-                "description": "List of organizations I have worked for so far.\n",
+                "summary": "List of organizations I have worked for",
+                "description": "List of organizations I have worked for.\n",
                 "tags": [
                     "Professional"
                 ],
@@ -67,8 +67,8 @@
         },
         "/interests": {
             "get": {
-                "summary": "Everything that interests me",
-                "description": "My hobbies, engagements and activites apart from work",
+                "summary": "Hobbies, engagements and activites apart from work",
+                "description": "Hobbies, engagements and activites apart from work.\n",
                 "tags": [
                     "Personal"
                 ],
@@ -92,10 +92,65 @@
                 }
             }
         },
+        "/books": {
+            "get": {
+                "summary": "Books that I have read, am reading or want to read",
+                "description": "Books that I have read, am reading or want to read.\n",
+                "tags": [
+                    "Personal"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of books",
+                        "schema": {
+                            "title": "Books",
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/BookDefinition"
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Access denied",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorDefinition"
+                        }
+                    }
+                }
+            }
+        },
+        "/photos": {
+            "get": {
+                "summary": "This is how I look",
+                "description": "This is how I look.\n",
+                "tags": [
+                    "Personal"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of photos",
+                        "schema": {
+                            "title": "Photos",
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/PhotoDefinition"
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Access denied",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorDefinition"
+                        }
+                    }
+                }
+            }
+        },
+
         "/skills": {
             "get": {
-                "summary": "Skills",
-                "description": "My technical skills",
+                "summary": "Technical skills",
+                "description": "Technical skills.\n",
                 "tags": [
                     "Professional"
                 ],
@@ -121,8 +176,8 @@
         },
         "/degrees": {
             "get": {
-                "summary": "Degrees received",
-                "description": "Educational  background",
+                "summary": "Degrees I have received",
+                "description": "Degrees I have received.\n",
                 "tags": [
                     "Educational"
                 ],
@@ -148,8 +203,8 @@
         },
         "/messages": {
             "post": {
-                "summary": "Messages",
-                "description": "This will send me an email",
+                "summary": "Send me a message",
+                "description": "Send me a message",
                 "parameters": [{
                     "name": "body",
                     "in": "body",
@@ -252,7 +307,7 @@
         },
         "SkillDefinition": {
             "type": "string",
-	    "properties": {} 
+            "properties": {}
         },
         "MessageDefinition": {
             "type": "object",
@@ -269,6 +324,41 @@
                 }
             },
             "required": ["body", "sender"]
+        },
+        "BookDefinition": {
+            "type": "object",
+            "properties": {
+                "author": {
+                    "type": "string",
+                    "format": "string",
+                    "description": "Author"
+                },
+                "title": {
+                    "type": "string",
+                    "format": "string",
+                    "description": "Title"
+                },
+                "status": {
+                    "type": "string",
+                    "format": "string",
+                    "description": "Status"
+                }
+            }
+        },
+        "PhotoDefinition": {
+            "type": "object",
+            "properties": {
+                "url": {
+                    "type": "string",
+                    "format": "string",
+                    "description": "URL"
+                },
+                "title": {
+                    "type": "string",
+                    "format": "string",
+                    "description": "Title"
+                }
+            }
         },
         "ErrorDefinition": {
             "type": "object",

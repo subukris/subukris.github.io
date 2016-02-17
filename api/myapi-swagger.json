@@ -230,6 +230,12 @@
                             "$ref": "#/definitions/ErrorDefinition"
                         }
                     },
+                    "400": {
+                        "description": "Invalid input",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorDefinition"
+                        }
+                    },
                     "500": {
                         "description": "Internal error",
                         "schema": {
